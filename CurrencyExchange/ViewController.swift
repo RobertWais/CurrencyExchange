@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController {
 
     
+    @IBOutlet weak var initialLbl: UILabel!
+    @IBOutlet weak var convertedLbl: UILabel!
+    
     
     @IBOutlet var buttonLayoutCollection: [UIButton]!
     
@@ -28,24 +31,39 @@ class ViewController: UIViewController {
     @IBAction func btnPressed(_ sender: UIButton) {
         var tag = sender.tag
         print("The button tag is \(tag)")
-        if tag == 12 {
-            //Value C
-        }else{
-            //Number 1-9 or .
+        
+        if tag==11 {
+            print("Here")
+             initialLbl.text=""
+        }else if tag == 10{
+            initialLbl.text = "\(String(describing: initialLbl.text!))."
+        }else {
+            initialLbl.text = "\(String(describing: initialLbl.text!))\(tag)"
         }
+        calculateExchange()
     }
     
     func calculateExchange(){
+        guard let currencyText = self.initialLbl.text,
+            var amount = Double(currencyText) else {
+                print("wont work")
+                return
+        }
+        amount = amount*0.86
+        amount = (100 * amount).rounded() / 100
+        convertedLbl.text = String(format: "%.2f", amount)
         //Take both strings, conver them
     }
     
     func uiUpdate(){
+        var index = 1
         for button in buttonLayoutCollection {
             button.layer.borderWidth = 0.5
-            button.layer.borderColor = UIColor.lightGray.cgColor
+            button.layer.borderColor = UIColor.white.cgColor
+            button.backgroundColor = #colorLiteral(red: 0.2838629484, green: 0.2838629484, blue: 0.2838629484, alpha: 1)
+            button.titleLabel?.tintColor = UIColor.white
+            button.setTitleColor(UIColor.white, for: .normal)
         }
     }
-    
-
 }
 
